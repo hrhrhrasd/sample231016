@@ -15,7 +15,7 @@ public class TodoDao {
     private DataSource dataSource;
     
     public List<Todo> list() throws SQLException {
-        String sql = "select * from todo ordet by id desc";
+        String sql = "select * from todo order by id desc";
         Connection connection = dataSource.getConnection();
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
@@ -27,9 +27,11 @@ public class TodoDao {
                 todo.setId(resultSet.getInt("id"));
                 todo.setTodo(resultSet.getString("todo"));
                 todo.setInserted(resultSet.getTimestamp("inserted").toLocalDateTime());
+
+                list.add(todo);
             }
         }
-
+        return list;
     }
 
     public boolean insert(Todo todo) throws SQLException {
@@ -45,8 +47,6 @@ public class TodoDao {
             int row = statement.executeUpdate();
 
             return row == 1;
-
-            }
         }
     }
 }

@@ -14,16 +14,17 @@
 <body>
 <h3>Todo list</h3>
 <form action="/add" method="post">
-
+    <input type="text" name="todo" placeholder="할 일을 입력하세요">
+    <button>추가</button>
 </form>
-
+<c:if test="${result}"><div>추가완료</div></c:if>
 <h4>Todo</h4>
 <div>
     <table>
         <tr>
         <th>id</th>
         <th>todo</th>
-        <th>입력날짜</th>
+        <th>date</th>
         </tr>
         <c:forEach items="${todoList}" var="todo">
             <tr>

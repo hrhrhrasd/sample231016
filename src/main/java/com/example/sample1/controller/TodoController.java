@@ -23,18 +23,17 @@ public class TodoController {
     public String home(Model model) throws SQLException {
         //todo list 읽어서 모델에 넣기
         List<Todo> list = todoDao.list();
-        model.addAttribute("toddList", list);
-
+        model.addAttribute("todoList", list);
 
         return "home";
     }
 
     @PostMapping("/add")
-    public String add(Todo todo, RedirectAttributes rttr) {
+    public String add(Todo todo, RedirectAttributes rttr) throws SQLException {
         // 새 할일 추가
-        todoDao.insert(todo);
+        boolean result = todoDao.insert(todo);
         //결과 모델에 넣고
-
+        rttr.addFlashAttribute("result", result);
         // home으로 redirect
         return "redirect:/";
 
